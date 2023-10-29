@@ -1,0 +1,13 @@
+// Media queries mobile
+@mixin mobile
+  @media (max-width: 767.99px)
+    @content
+
+// Media queries tablette
+@mixin tablet
+  @media (min-width: 768px) and (max-width: 1023.99px)
+    @content
+
+@mixin desktop
+    @media (min-width: 920px)
+        @content

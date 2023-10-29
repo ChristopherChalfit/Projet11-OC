@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import Logos from '../../assets/images/argentBankLogo.png'
 import './Header.sass'
+
 export default function Header(){
     return (<header className="header">
     <NavLink to="/">
