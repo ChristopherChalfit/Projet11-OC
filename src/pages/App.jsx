@@ -3,6 +3,8 @@ import Home from "./Home/Home";
 import Error from "./Error/Error";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
+import Signin from "./Signin/Signin";
+import Profile from "./Profiles/Profiles";
 
 function App() {
 
@@ -11,6 +13,8 @@ function App() {
     <Header />
     <Routes>
       <Route path="/" element={<Home/>} />
+      <Route path="/signin" element={<Signin/>} />
+      <Route path="/profile" element={<Profile/>} />
       <Route path="*" element={<Error />} />
     </Routes>
     <Footer />
