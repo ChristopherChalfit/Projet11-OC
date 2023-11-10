@@ -17,6 +17,7 @@ export const updateUsername = (username) => {
 export function fetchProfile(token) {
  
   return async (dispatch) => {
+    if(token){
     try {
       const url = "http://localhost:3001/api/v1/user/profile";
       const response = await fetch(url, {
@@ -43,5 +44,8 @@ export function fetchProfile(token) {
     } catch (error) {
       console.log(error);
     }
-  };
+  }else{
+    console.log("token : " +token)
+  }
+  }
 }

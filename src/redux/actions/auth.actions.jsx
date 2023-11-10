@@ -1,5 +1,6 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT } from "./types.actions";
+import { fetchProfile } from "./user.actions";
 
 export const login_Sucess = (token) => {
   return {
@@ -42,9 +43,7 @@ export function fetchToken(content, navigate, rememberMe) {
           break;
         case 200:
           dispatch(login_Sucess(token));
-          if(rememberMe){
-            localStorage.setItem("token", token);
-           }
+          dispatch(fetchProfile(token));
           navigate("/profile")
           break;
       }

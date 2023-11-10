@@ -13,8 +13,6 @@ export default function Header() {
   const token = localStorage.getItem("token");
   useEffect(() => {
     dispatch(fetchProfile(token));
-    
-    
   }, []);
   const handleSignOut = (e) => {
     e.preventDefault();
@@ -22,7 +20,7 @@ export default function Header() {
     navigate("/");
   };
  
-  if (isConnected === true) {
+  if (token) {
     return (
       <header className="header">
         <NavLink to="/">
