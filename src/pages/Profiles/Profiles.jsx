@@ -1,11 +1,17 @@
-import './Profiles.sass'
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchProfile } from '../../redux/actions/user.actions';
-import { useState } from "react";
-export default function Profile(){
-    const firstname = useSelector((state) => state.user.firstname);
-    const lastname = useSelector((state) => state.user.lastname); // Utilisez 'lastname' avec une minuscule ici
-    return(<> <p>Connecté avec l'utilisateur : {firstname} {lastname}</p></>)
-
+import "./Profiles.sass";
+import { useSelector, } from "react-redux";
+import Account from "../../components/Accounts/Account";
+import HeaderAccount from "../../components/HeaderAccount/HeaderAccount";
+export default function Profile() {
+  return (
+    <div className="bg-dark">
+      <HeaderAccount/>
+      <Account
+        type="Checking"
+        accNbr="x8349"
+        accAmount="2,082.79"
+        description="Available Balance"
+      />
+    </div>
+  );
 }

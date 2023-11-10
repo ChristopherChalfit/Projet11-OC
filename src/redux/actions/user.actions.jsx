@@ -31,7 +31,6 @@ export function fetchProfile(token) {
         const firstName = dataResponse.body.firstName;
         const lastName = dataResponse.body.lastName;
         const userName = dataResponse.body.userName;
-        console.log(dataResponse);
         switch (dataResponse.status) {
           case 400:
             //dispatch(loginFailed(dataResponse.message));
