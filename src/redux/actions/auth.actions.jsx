@@ -2,7 +2,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT } from "./types.actions";
 import { fetchProfile } from "./user.actions";
 
-export const login_Sucess = (token) => {
+export const login_Sucess = (token, navigate) => {
   return {
     type: LOGIN_SUCCESS,
     payload: token,
@@ -40,11 +40,10 @@ export function fetchToken(content, navigate, rememberMe) {
           break;
         case 200:
           const token = dataResponse.body.token;
-          if(rememberMe){
-          localStorage.setItem("token",token);
+          if (rememberMe) {
+            localStorage.setItem("token", token);
           }
           dispatch(login_Sucess(token));
-          dispatch(fetchProfile(token));
           navigate("/profile");
           break;
       }

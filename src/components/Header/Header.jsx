@@ -9,54 +9,49 @@ export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userProfile = useSelector((state) => state.user.firstname);
-  const [token, setToken] = useState('');
-  if (localStorage.getItem("token")) {
-    setToken(localStorage.getItem("token"));
-  } else {
-    if (useSelector((state) => state.auth.token)) {
-      setToken(useSelector((state) => state.auth.token));
-    }
-  }
+  const tokenSelector = useSelector((state) => state.auth.token);
+  const [token, setToken] = useState(tokenSelector || "");
+
   useEffect(() => {
-    dispatch(fetchProfile(token));
-  }, []);
+    setToken(tokenSelector || localStorage.getItem("token") || "");
+  }, [tokenSelector]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchProfile(token));
+    }
+  }, [token]);
+
   const handleSignOut = (e) => {
     e.preventDefault();
     dispatch(logout());
     navigate("/");
   };
 
-  if (token) {
-    return (
-      <header className="header">
-        <NavLink to="/">
-          <img src={Logos}></img>
-        </NavLink>
-        <nav className="header__navbar">
-          <NavLink to="/profile" className="main-nav-item">
-            <i className="fa fa-user-circle"></i>
-            {userProfile}
-          </NavLink>
-          <NavLink to="/" onClick={handleSignOut}>
-            <i className="fa fa-user-circle"></i>
-            Sign Out
-          </NavLink>
-        </nav>
-      </header>
-    );
-  } else {
-    return (
-      <header className="header">
-        <NavLink to="/">
-          <img src={Logos}></img>
-        </NavLink>
-        <nav className="header__navbar">
+  return (
+    <header className="header">
+      <NavLink to="/">
+        <img src={Logos} alt="Logo" />
+      </NavLink>
+      <nav className="header__navbar">
+        {token ? (
+          <>
+            <NavLink to="/profile" className="main-nav-item">
+              <i className="fa fa-user-circle"></i>
+              {userProfile}
+            </NavLink>
+            <NavLink to="/" onClick={handleSignOut}>
+              <i className="fa fa-user-circle"></i>
+              Sign Out
+            </NavLink>
+          </>
+        ) : (
           <NavLink to="/login">
             <i className="fa fa-user-circle"></i>
             Sign In
           </NavLink>
-        </nav>
-      </header>
-    );
-  }
+        )}
+      </nav>
+    </header>
+  );
 }
