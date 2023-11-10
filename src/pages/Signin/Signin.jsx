@@ -18,7 +18,7 @@ export default function Signin() {
       email: email,
       password: password,
     });
-    dispatch(fetchToken(login,navigate, rememberMe));
+    dispatch(fetchToken(login, navigate, rememberMe));
   };
   let errorMessage = null;
   if (loginError) {

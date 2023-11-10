@@ -9,18 +9,18 @@ export const login_Sucess = (token) => {
   };
 };
 export const loginFailed = (error) => {
-    return {
-        type: LOGIN_FAILED,
-        payload: error,
-    }
-}
+  return {
+    type: LOGIN_FAILED,
+    payload: error,
+  };
+};
 
 export const logout = () => {
   localStorage.removeItem("token");
-    return {
-        type: LOGOUT,
-    }
-} 
+  return {
+    type: LOGOUT,
+  };
+};
 
 export function fetchToken(content, navigate, rememberMe) {
   return async (dispatch) => {
@@ -34,17 +34,18 @@ export function fetchToken(content, navigate, rememberMe) {
         body: content,
       });
       const dataResponse = await response.json();
-      const token = dataResponse.body.token;
-      
-      console.log(dataResponse);
       switch (dataResponse.status) {
         case 400:
           dispatch(loginFailed(dataResponse.message));
           break;
         case 200:
+          const token = dataResponse.body.token;
+          if(rememberMe){
+          localStorage.setItem("token",token);
+          }
           dispatch(login_Sucess(token));
           dispatch(fetchProfile(token));
-          navigate("/profile")
+          navigate("/profile");
           break;
       }
     } catch (error) {
