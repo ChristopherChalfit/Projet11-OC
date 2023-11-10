@@ -5,6 +5,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import Signin from "./Signin/Signin";
 import Profile from "./Profiles/Profiles";
+import PrivateRoute from "../components/Routes/PrivateRoute";
 
 function App() {
 
@@ -13,8 +14,10 @@ function App() {
     <Header />
     <Routes>
       <Route path="/" element={<Home/>} />
-      <Route path="/signin" element={<Signin/>} />
+      <Route path="/login" element={<Signin/>} />
+      <Route element={<PrivateRoute/>}>
       <Route path="/profile" element={<Profile/>} />
+        </Route>
       <Route path="*" element={<Error />} />
     </Routes>
     <Footer />

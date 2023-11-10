@@ -15,6 +15,7 @@ export const updateUsername = (username) => {
 };
 
 export function fetchProfile(token) {
+ 
   return async (dispatch) => {
     try {
       const url = "http://localhost:3001/api/v1/user/profile";

@@ -15,12 +15,13 @@ export const loginFailed = (error) => {
 }
 
 export const logout = () => {
+  localStorage.removeItem("token");
     return {
         type: LOGOUT,
     }
 } 
 
-export function fetchToken(content, navigate) {
+export function fetchToken(content, navigate, rememberMe) {
   return async (dispatch) => {
     try {
       const url = "http://localhost:3001/api/v1/user/login";
@@ -33,6 +34,7 @@ export function fetchToken(content, navigate) {
       });
       const dataResponse = await response.json();
       const token = dataResponse.body.token;
+      
       console.log(dataResponse);
       switch (dataResponse.status) {
         case 400:
@@ -40,6 +42,9 @@ export function fetchToken(content, navigate) {
           break;
         case 200:
           dispatch(login_Sucess(token));
+          if(rememberMe){
+            localStorage.setItem("token", token);
+           }
           navigate("/profile")
           break;
       }
