@@ -41,7 +41,7 @@ export default function Header() {
               {userProfile}
             </NavLink>
             <NavLink to="/" onClick={handleSignOut}>
-              <i className="fa fa-user-circle"></i>
+              <i className="fa fa-sign-out"></i>
               Sign Out
             </NavLink>
           </>

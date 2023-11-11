@@ -2,7 +2,6 @@ import "./Account.sass";
 
 export default function Account({ type, accNbr, accAmount, description }) {
   return (
-    <div>
       <section className="account">
         <div className="account-content-wrapper">
           <h3 className="account-title">
@@ -15,6 +14,5 @@ export default function Account({ type, accNbr, accAmount, description }) {
           <button className="transaction-button">View transactions</button>
         </div>
       </section>
-    </div>
   );
 }
