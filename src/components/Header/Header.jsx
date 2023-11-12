@@ -28,6 +28,7 @@ export default function Header() {
   const handleSignOut = (e) => {
     e.preventDefault();
     dispatch(logout());
+    setToken('');
     navigate("/");
   };
   return (
