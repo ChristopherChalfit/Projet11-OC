@@ -14,16 +14,16 @@ export default function Profile() {
         description="Available Balance"
       />
       <Account
-        type="Checking"
-        accNbr="x8349"
-        accAmount="2,082.79"
+        type="Savings"
+        accNbr="x6712"
+        accAmount="10,928.42"
         description="Available Balance"
       />
       <Account
-        type="Checking"
+        type="Credit Card"
         accNbr="x8349"
-        accAmount="2,082.79"
-        description="Available Balance"
+        accAmount="184.30"
+        description="Current Balance"
       />
     </div>
   );

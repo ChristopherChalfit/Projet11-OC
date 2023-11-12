@@ -11,7 +11,7 @@ export default function Account({ type, accNbr, accAmount, description }) {
           <p className="account-amount-description">{description}</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <button className="button transaction-button">View transactions</button>
         </div>
       </section>
   );

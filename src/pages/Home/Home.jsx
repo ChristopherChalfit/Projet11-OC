@@ -1,7 +1,7 @@
 import Features from "../../components/Features/Features";
-import IconChat from '../../assets/images/icon-chat.png'
-import IconMoney from '../../assets/images/icon-money.png'
-import IconSecurity from '../../assets/images/icon-security.png'
+import IconChat from '../../assets/images/icon-chat.webp'
+import IconMoney from '../../assets/images/icon-money.webp'
+import IconSecurity from '../../assets/images/icon-security.webp'
 import "./Home.sass";
 export default function Home() {
   return (

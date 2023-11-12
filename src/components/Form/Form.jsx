@@ -55,7 +55,7 @@ export default function Form() {
         <label htmlFor="remember-me">Remember me</label>
       </div>
       {errorMessage}
-      <button className="sign-in-button" type="submit">
+      <button className="button sign-in-button" type="submit">
         Sign In
       </button>
     </form>
