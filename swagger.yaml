@@ -101,6 +101,138 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/{userId}/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Get all transaction of the month
+      description: API for Get all transactions data.
+      parameters:
+        - in: path
+          name: userId
+          description: unique user ID 
+          required: true
+          type: string
+      responses:
+        '200':
+          description: List of transactions of the month successfully retrieved
+          schema:
+            $ref: '#/definitions/TransactionsResponse'
+        '400':
+          description: Unauthorized
+        '401':
+          description: No transactions are available for the current month
+        '500':
+          description: Internal Server Error
+  /user/{userId}/transactions/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Get transaction by id
+      description: API for Get transactions data by id.
+      parameters:
+        - in: path
+          name: userId
+          description: unique user ID 
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: unique ID of transaction 
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Get transaction by id successful
+          schema:
+            $ref: '#/definitions/TransactionsIDResponse'
+        '400':
+          description: Unauthorized
+        '401':
+          description: No transactions found with id
+        '500':
+          description: Internal Server Error
+  /user/{userId}/transactions/{id}/{categorieOrNote}:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary:  Update category or note in a transaction
+      description: API for updating category or note in transaction
+      parameters:
+        - in: path
+          name: userId
+          description: unique ID of transaction 
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: unique ID of transaction 
+          required: true
+          type: string
+        - in: path
+          name: categorieOrNote
+          description: category or note
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: New category and note information for the transaction
+          required: true
+          schema:
+            $ref: '#/definitions/transactionCategoryNote'
+      responses:
+        '200':
+          description: The category was correctly modify.
+          schema:
+            $ref: '#/definitions/categoryResponse'
+        '201':
+          description: The note was correctly modify
+          schema:
+            $ref: '#/definitions/noteResponse'
+        '400':
+          description: Unauthorized token not found.
+        '401':
+          description: transaction not found.
+        '500':
+          description: Internal Server Error.
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Delete the category or note of a transaction
+      description: API for delete category or note of in transaction
+      parameters:
+        - in: path
+          name: userId
+          description: unique ID of transaction 
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: unique ID of transaction 
+          required: true
+          type: string
+        - in: path
+          name: categorieOrNote
+          description: category or note
+          required: true
+          type: string
+      responses:
+        '200':
+          description: deleted successully. 
+        '400':
+          description: Unauthorized.
+        '401':
+          description: Transaction not found.
+        '500':
+          description: Internal Server Error.
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -156,3 +288,72 @@ definitions:
     properties:
       userName:
         type: string
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+        description: ID of the transaction
+      date:
+        type: string
+        format: date
+        description: Date of the transaction
+      description:
+        type: string
+        description: Description of the transaction
+      amount:
+        type: number
+        description: Transaction amount
+      balance:
+        type: number
+        description: Transaction balance
+  TransactionsResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        description: Status code of the response
+      message:
+        type: string
+        description: Message description for the response
+      body:
+        type: array
+        items:
+            $ref: '#/definitions/Transaction'
+        description: Array of transactions
+  TransactionsIDResponse:
+    type: object
+    properties:
+      status:
+        type: number
+      message:
+        type: string
+      type:
+        type: string
+      category:
+        type: string
+      note:
+        type: string
+  transactionCategoryNote:
+    properties:
+      name:
+        type: string
+  categoryResponse:
+    type: object
+    properties:
+      status:
+        type: number
+      message: 
+        type: string
+      category:
+        type: string
+  noteResponse:
+    type: object
+    properties:
+      status:
+        type: number
+      message: 
+        type: string
+      note:
+        type: string
+    
