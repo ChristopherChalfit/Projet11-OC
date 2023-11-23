@@ -149,14 +149,13 @@ paths:
         '200':
           description: Get transaction by id successful
           schema:
-            $ref: '#/definitions/TransactionsIDResponse'
+            $ref: '#/definitions/SingleTransactionResponse'
         '400':
           description: Unauthorized
         '401':
           description: No transactions found with id
         '500':
           description: Internal Server Error
-  /user/{userId}/transactions/{id}/{categorieOrNote}:
     put:
       security:
         - Bearer: []
@@ -167,17 +166,12 @@ paths:
       parameters:
         - in: path
           name: userId
-          description: unique ID of transaction 
+          description: unique ID of userId 
           required: true
           type: string
         - in: path
           name: id
           description: unique ID of transaction 
-          required: true
-          type: string
-        - in: path
-          name: categorieOrNote
-          description: category or note
           required: true
           type: string
         - in: body
@@ -190,28 +184,25 @@ paths:
         '200':
           description: The category was correctly modify.
           schema:
-            $ref: '#/definitions/categoryResponse'
-        '201':
-          description: The note was correctly modify
-          schema:
-            $ref: '#/definitions/noteResponse'
+            $ref: '#/definitions/SingleTransactionResponse'
         '400':
           description: Unauthorized token not found.
         '401':
           description: transaction not found.
         '500':
           description: Internal Server Error.
+  /user/{userId}/transactions/{id}/categorie:
     delete:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Delete the category or note of a transaction
-      description: API for delete category or note of in transaction
+      summary: Delete categorie
+      description: API for delete categorie
       parameters:
         - in: path
           name: userId
-          description: unique ID of transaction 
+          description: unique ID of userId 
           required: true
           type: string
         - in: path
@@ -219,14 +210,41 @@ paths:
           description: unique ID of transaction 
           required: true
           type: string
+      responses:
+        '200':
+          description: deleted successully. 
+          schema:
+            $ref: '#/definitions/SingleTransactionResponse'
+        '400':
+          description: Unauthorized.
+        '401':
+          description: Transaction not found.
+        '500':
+          description: Internal Server Error.
+  /user/{userId}/transactions/{id}/note:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Delete the note
+      description: API for delete note
+      parameters:
         - in: path
-          name: categorieOrNote
-          description: category or note
+          name: userId
+          description: unique ID of userId 
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: unique ID of transaction 
           required: true
           type: string
       responses:
         '200':
-          description: deleted successully. 
+          description: deleted successully.
+          schema:
+            $ref: '#/definitions/SingleTransactionResponse'
         '400':
           description: Unauthorized.
         '401':
@@ -307,6 +325,10 @@ definitions:
       balance:
         type: number
         description: Transaction balance
+      category:
+        type: string
+      note:
+        type: string
   TransactionsResponse:
     type: object
     properties:
@@ -321,39 +343,18 @@ definitions:
         items:
             $ref: '#/definitions/Transaction'
         description: Array of transactions
-  TransactionsIDResponse:
+  transactionCategoryNote:
+    properties:
+      category:
+        type: string
+      note:
+        type: string
+  SingleTransactionResponse:
     type: object
     properties:
       status:
         type: number
       message:
         type: string
-      type:
-        type: string
-      category:
-        type: string
-      note:
-        type: string
-  transactionCategoryNote:
-    properties:
-      name:
-        type: string
-  categoryResponse:
-    type: object
-    properties:
-      status:
-        type: number
-      message: 
-        type: string
-      category:
-        type: string
-  noteResponse:
-    type: object
-    properties:
-      status:
-        type: number
-      message: 
-        type: string
-      note:
-        type: string
-    
+      body:
+        $ref: '#/definitions/Transaction'

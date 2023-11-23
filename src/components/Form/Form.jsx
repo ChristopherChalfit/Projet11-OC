@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchToken } from "../../redux/actions/auth.actions";
+import { fetchToken, loginFailed, login_Sucess } from "../../redux/actions/auth.actions";
 import './Form.sass'
 export default function Form() {
   const [email, setEmail] = useState("");
@@ -17,8 +17,15 @@ export default function Form() {
       email: email,
       password: password,
     });
-    dispatch(fetchToken(login, navigate, rememberMe));
+    dispatch(fetchToken(login, SuccessLogin, ErrorLogin,rememberMe));
   };
+  const SuccessLogin= (token)=>{
+    dispatch(login_Sucess(token));
+    navigate("/profile");
+  }
+  const ErrorLogin= (message)=>{
+    dispatch(loginFailed(message));
+  }
   let errorMessage = null;
   if (loginError) {
     errorMessage = <p style={{ color: "red" }}>{loginError}</p>;

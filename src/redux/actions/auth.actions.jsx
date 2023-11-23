@@ -22,7 +22,7 @@ export const logout = () => {
   };
 };
 
-export function fetchToken(content, navigate, rememberMe) {
+export function fetchToken(content, Successlogin,ErrorLogin, rememberMe) {
   return async (dispatch) => {
     try {
       const url = "http://localhost:3001/api/v1/user/login";
@@ -36,15 +36,14 @@ export function fetchToken(content, navigate, rememberMe) {
       const dataResponse = await response.json();
       switch (dataResponse.status) {
         case 400:
-          dispatch(loginFailed(dataResponse.message));
+          ErrorLogin(dataResponse.message);
           break;
         case 200:
           const token = dataResponse.body.token;
           if (rememberMe) {
             localStorage.setItem("token", token);
           }
-          dispatch(login_Sucess(token));
-          navigate("/profile");
+          Successlogin(token);
           break;
       }
     } catch (error) {

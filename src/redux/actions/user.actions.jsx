@@ -32,9 +32,6 @@ export function fetchProfile(token) {
           case 401:
             localStorage.removeItem("token");
             console.log("token expiré");
-          case 400:
-            //dispatch(loginFailed(dataResponse.message));
-            break;
           case 200:
             const userprofile = dataResponse.body;
             dispatch(userProfile(userprofile));
