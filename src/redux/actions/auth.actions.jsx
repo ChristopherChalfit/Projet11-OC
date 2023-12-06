@@ -2,7 +2,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT } from "./types.actions";
 import { fetchProfile } from "./user.actions";
 
-export const login_Sucess = (token, navigate) => {
+export const login_Sucess = (token) => {
   return {
     type: LOGIN_SUCCESS,
     payload: token,

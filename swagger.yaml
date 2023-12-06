@@ -101,7 +101,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/{userId}/transactions:
+  /transactions:
     get:
       security:
         - Bearer: []
@@ -109,24 +109,18 @@ paths:
         - Transactions Module
       summary: Get all transaction of the month
       description: API for Get all transactions data.
-      parameters:
-        - in: path
-          name: userId
-          description: unique user ID 
-          required: true
-          type: string
       responses:
         '200':
           description: List of transactions of the month successfully retrieved
           schema:
             $ref: '#/definitions/TransactionsResponse'
-        '400':
-          description: Unauthorized
         '401':
+          description: Unauthorized
+        '404':
           description: No transactions are available for the current month
         '500':
           description: Internal Server Error
-  /user/{userId}/transactions/{id}:
+  /transactions/{id}:
     get:
       security:
         - Bearer: []
@@ -135,11 +129,6 @@ paths:
       summary: Get transaction by id
       description: API for Get transactions data by id.
       parameters:
-        - in: path
-          name: userId
-          description: unique user ID 
-          required: true
-          type: string
         - in: path
           name: id
           description: unique ID of transaction 
@@ -151,8 +140,10 @@ paths:
           schema:
             $ref: '#/definitions/SingleTransactionResponse'
         '400':
-          description: Unauthorized
+          description: Bad params
         '401':
+          description: Unauthorized
+        '404':
           description: No transactions found with id
         '500':
           description: Internal Server Error
@@ -164,11 +155,6 @@ paths:
       summary:  Update category or note in a transaction
       description: API for updating category or note in transaction
       parameters:
-        - in: path
-          name: userId
-          description: unique ID of userId 
-          required: true
-          type: string
         - in: path
           name: id
           description: unique ID of transaction 
@@ -186,69 +172,11 @@ paths:
           schema:
             $ref: '#/definitions/SingleTransactionResponse'
         '400':
+          description: Bad params
+        '401':
           description: Unauthorized token not found.
-        '401':
+        '404':
           description: transaction not found.
-        '500':
-          description: Internal Server Error.
-  /user/{userId}/transactions/{id}/categorie:
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - Transactions Module
-      summary: Delete categorie
-      description: API for delete categorie
-      parameters:
-        - in: path
-          name: userId
-          description: unique ID of userId 
-          required: true
-          type: string
-        - in: path
-          name: id
-          description: unique ID of transaction 
-          required: true
-          type: string
-      responses:
-        '200':
-          description: deleted successully. 
-          schema:
-            $ref: '#/definitions/SingleTransactionResponse'
-        '400':
-          description: Unauthorized.
-        '401':
-          description: Transaction not found.
-        '500':
-          description: Internal Server Error.
-  /user/{userId}/transactions/{id}/note:
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - Transactions Module
-      summary: Delete the note
-      description: API for delete note
-      parameters:
-        - in: path
-          name: userId
-          description: unique ID of userId 
-          required: true
-          type: string
-        - in: path
-          name: id
-          description: unique ID of transaction 
-          required: true
-          type: string
-      responses:
-        '200':
-          description: deleted successully.
-          schema:
-            $ref: '#/definitions/SingleTransactionResponse'
-        '400':
-          description: Unauthorized.
-        '401':
-          description: Transaction not found.
         '500':
           description: Internal Server Error.
 securityDefinitions:

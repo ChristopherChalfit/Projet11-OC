@@ -40,8 +40,8 @@ export default function Header() {
         {token ? (
           <>
             <NavLink to="/profile" className="main-nav-item">
+              {userProfile.userName}
               <i className="fa fa-user-circle"></i>
-              {userProfile.firstName}
             </NavLink>
             <NavLink to="/" onClick={handleSignOut}>
               <i className="fa fa-sign-out"></i>
